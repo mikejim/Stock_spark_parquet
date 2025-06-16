@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  producer:
+    build: .
+    container_name: producer
+    volumes:
+      - ./shared_volume:/app/shared_volume
+    environment:
+      - API_KEY=your_fmp_api_key
+    command: python producer/stream_producer.py
+
+  spark:
+    image: bitnami/spark:latest
+    container_name: spark
+    volumes:
+      - ./shared_volume:/app/shared_volume
+    command: >
+      bash -c "spark-submit spark/spark_streamer.py"
+    depends_on:
+      - producer
+
+  dash:
+    build: .
+    container_name: dash
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./shared_volume:/app/shared_volume
+    command: python dash/dashboard.py
+    depends_on:
+      - spark
