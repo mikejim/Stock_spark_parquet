@@ -2,3 +2,4 @@ requests
 dash
 pandas
 pyarrow
+pyspark

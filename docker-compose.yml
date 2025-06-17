@@ -5,6 +5,7 @@ services:
     container_name: producer
     volumes:
       - ./shared_volume:/app/shared_volume
+    env_file: .env
     environment:
       - API_KEY=your_fmp_api_key
     command: python producer/stream_producer.py
@@ -13,12 +14,14 @@ services:
     image: bitnami/spark:latest
     container_name: spark
     volumes:
+      - ./spark:/app/spark
       - ./shared_volume:/app/shared_volume
+    working_dir: /app
     command: >
-      bash -c "spark-submit spark/spark_streamer.py"
+      bash -c "/opt/bitnami/spark/bin/spark-submit /app/spark/spark_streamer.py"
     depends_on:
       - producer
-
+      
   dash:
     build: .
     container_name: dash
