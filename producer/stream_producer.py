@@ -4,9 +4,11 @@ import json
 import requests
 import os
 
+print("[producer] ✅ Script is starting...")
+
 # Configuration
 HOST = "0.0.0.0"  # Listen on all interfaces
-PORT = 9999       # Port to stream on
+PORT = 9998       # Port to stream on
 TICKERS = ["AAPL", "MSFT", "GOOG"]
 API_KEY = os.getenv("API_KEY")  # Read from environment variable
 

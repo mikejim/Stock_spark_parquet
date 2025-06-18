@@ -17,7 +17,7 @@ schema = StructType() \
 raw_df = spark.readStream \
     .format("socket") \
     .option("host", "producer") \
-    .option("port", 9999) \
+    .option("port", 9998) \
     .load()
 
 # Parse the JSON text into structured columns
