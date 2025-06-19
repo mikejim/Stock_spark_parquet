@@ -14,6 +14,6 @@ RUN pip install --no-cache-dir requests
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ✅ Tell Docker what to run on container start
-CMD ["python", "producer/stream_producer.py"]
-
+CMD ["python", "-u",  "producer/stream_producer.py"]
+#CMD ["python", "-c", "print('🔥 Producer container is alive'); import time; time.sleep(30)"]
 

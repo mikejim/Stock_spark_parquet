@@ -4,7 +4,7 @@ import json
 import requests
 import os
 
-print("[producer] ✅ Script is starting...")
+print("[producer] ✅ Script is starting...", flush=True)
 
 # Configuration
 HOST = "0.0.0.0"  # Listen on all interfaces
