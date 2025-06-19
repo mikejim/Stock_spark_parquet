@@ -1,16 +1,15 @@
-import socket
+import os
 import time
 import json
 import requests
-import os
+from datetime import datetime
 
-print("[producer] ✅ Script is starting...", flush=True)
+print("[producer] ✅ Script is starting...")
 
-# Configuration
-HOST = "0.0.0.0"  # Listen on all interfaces
-PORT = 9998       # Port to stream on
 TICKERS = ["AAPL", "MSFT", "GOOG"]
-API_KEY = os.getenv("API_KEY")  # Read from environment variable
+API_KEY = os.getenv("API_KEY")
+OUT_DIR = "/app/shared_volume/stream_data"
+os.makedirs(OUT_DIR, exist_ok=True)
 
 def get_prices():
     symbols = ",".join(TICKERS)
@@ -20,31 +19,28 @@ def get_prices():
         if response.status_code == 200:
             return response.json()
         else:
-            print(f"API error: {response.status_code} {response.text}")
+            print(f"[producer] API error: {response.status_code} {response.text}")
             return []
     except Exception as e:
-        print(f"Error fetching stock prices: {e}")
+        print(f"[producer] ❌ Error fetching stock prices: {e}")
         return []
 
-# Start socket server
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
-    server_socket.bind((HOST, PORT))
-    server_socket.listen(1)
-    print(f"[producer] Waiting for Spark to connect on {HOST}:{PORT}...")
-    
-    conn, addr = server_socket.accept()
-    print(f"[producer] Connection established with Spark at {addr}")
+while True:
+    prices = get_prices()
+    timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    filepath = os.path.join(OUT_DIR, f"tickers_{timestamp}.json")
 
-    with conn:
-        while True:
-            prices = get_prices()
+    try:
+        with open(filepath, "w") as f:
             for price in prices:
                 record = {
                     "symbol": price["symbol"],
                     "price": price["price"],
                     "timestamp": int(time.time())
                 }
-                message = json.dumps(record) + "\n"
-                conn.sendall(message.encode("utf-8"))
-                print(f"[producer] Sent: {message.strip()}")
-            time.sleep(10)
+                f.write(json.dumps(record) + "\n")
+            print(f"[producer] ✅ Wrote {len(prices)} records to {filepath}")
+    except Exception as e:
+        print(f"[producer] ❌ Failed to write file: {e}")
+
+    time.sleep(10)

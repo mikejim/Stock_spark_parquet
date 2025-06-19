@@ -1,0 +1,13 @@
+v1
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619022401.json","timestamp":1750299841374,"batchId":0}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619022412.json","timestamp":1750299852026,"batchId":1}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619022422.json","timestamp":1750299862567,"batchId":2}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619022433.json","timestamp":1750299873430,"batchId":3}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619022951.json","timestamp":1750300191921,"batchId":3}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023002.json","timestamp":1750300202546,"batchId":3}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023012.json","timestamp":1750300212980,"batchId":4}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023023.json","timestamp":1750300223537,"batchId":5}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023033.json","timestamp":1750300233950,"batchId":6}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023044.json","timestamp":1750300244556,"batchId":7}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023055.json","timestamp":1750300255179,"batchId":8}
+{"path":"file:///app/shared_volume/stream_data/tickers_20250619023105.json","timestamp":1750300265603,"batchId":9}
