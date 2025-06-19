@@ -43,4 +43,4 @@ while True:
     except Exception as e:
         print(f"[producer] ❌ Failed to write file: {e}")
 
-    time.sleep(10)
+    time.sleep(60)
